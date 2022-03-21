@@ -1,6 +1,7 @@
-import users from "./Users";
-import greenhouses from "./Greenhouses";
+import users from './Users';
+import greenhouses from './Greenhouses';
 
 export default {
-    users, greenhouses
+  users,
+  greenhouses,
 };

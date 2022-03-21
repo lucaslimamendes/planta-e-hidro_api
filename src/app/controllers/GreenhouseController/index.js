@@ -1,13 +1,13 @@
-import list from './GreenhouseController/list';
-import find from './GreenhouseController/find';
-import create from './GreenhouseController/create';
-import update from './GreenhouseController/update';
-import remove from './GreenhouseController/remove';
+import greenhouseList from './list';
+import greenhouseFind from './find';
+import greenhouseCreate from './create';
+import greenhouseUpdate from './update';
+import greenhouseRemove from './remove';
 
 export {
-    list,
-    find,
-    create,
-    update,
-    remove,
+  greenhouseList,
+  greenhouseFind,
+  greenhouseCreate,
+  greenhouseUpdate,
+  greenhouseRemove,
 };
