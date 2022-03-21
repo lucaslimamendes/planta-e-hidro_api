@@ -4,10 +4,4 @@ import create from './create';
 import update from './update';
 import remove from './remove';
 
-export {
-    list,
-    find,
-    create,
-    update,
-    remove,
-};
+export { list, find, create, update, remove };
