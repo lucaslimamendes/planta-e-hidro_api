@@ -17,6 +17,6 @@ export default async (req, res) => {
         type: 'Colab'
     };
 
-    user.push(users);
+    // user.push(users);
     return res.status(201).json(user);
 };
