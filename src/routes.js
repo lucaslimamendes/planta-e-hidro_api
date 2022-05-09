@@ -28,6 +28,6 @@ routes.post('/stock', stockCreate);
 routes.patch('/stock/:id', stockUpdate);
 routes.delete('/stock/:id', stockDelete);
 
-routes.get('/login', loginFind);
+routes.post('/login', loginFind);
 
 export default routes;
