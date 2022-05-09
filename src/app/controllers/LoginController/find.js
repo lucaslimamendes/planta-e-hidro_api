@@ -17,7 +17,7 @@ export default async (req, res) => {
             return res.status(412).json({ message: 'Senha e/ou email incorreto(s)!' });
 
         const secretKey = createSecretKey(settings.secret, 'utf-8');
-        const tokenJWT = await new SignJWT({ 'usr:id': user.id })
+        const tokenJWT = await new SignJWT({ 'usrId': user.id })
             .setProtectedHeader({ alg: 'HS256' })
             .setExpirationTime(settings.expiresIn)
             .sign(secretKey);
