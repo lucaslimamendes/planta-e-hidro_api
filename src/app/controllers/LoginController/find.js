@@ -2,7 +2,7 @@ import { createSecretKey } from 'crypto';
 import { SignJWT } from 'jose';
 import bcrypt from 'bcryptjs';
 import settings from '../../../config/auth';
-import users from '../../../../mock/Users';
+import users from '../../../mock/Users';
 
 export default async (req, res) => {
     try {

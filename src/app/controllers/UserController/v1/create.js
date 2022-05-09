@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import users from '../../../../../mock/Users';
+import users from '../../../../mock/Users';
 
 export default async (req, res) => {
     const { name, email, phone, password, username } = req.body;

@@ -1,4 +1,4 @@
-import users from '../../../../../mock/Users';
+import users from '../../../../mock/Users';
 
 export default async (req, res) => {
     const userIdx = users.findIndex((usr) => usr.id == req.params.id);

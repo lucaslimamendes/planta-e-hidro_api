@@ -1,4 +1,4 @@
-import greenhouses from '../../../../mock/Greenhouses';
+import greenhouses from '../../../mock/Greenhouses';
 
 export default async (req, res) => {
   const greenhouse = greenhouses.find(grnh => grnh.id == req.params.id);
