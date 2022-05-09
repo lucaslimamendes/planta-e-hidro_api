@@ -6,7 +6,9 @@
     "lint:check": "eslint .",
     "format:check": "prettier --check .",
     "dev": "nodemon --exec babel-node src/server.js",
-    "dev:debug": "nodemon --exec babel-node src/server.js"
+    "dev:debug": "nodemon --exec babel-node src/server.js",
+    "build": "babel src -d build",
+    "start": "node build/server.js"
   },
   "repository": {
     "type": "git",
