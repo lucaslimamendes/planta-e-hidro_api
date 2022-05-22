@@ -1,4 +1,4 @@
-module.exports = {
-    secret: '61b1a9d3e468019ce59f4decc44ac32c',
-    expiresIn: '24h'
-}
+export default {
+    secret: process.env.SECRET_JWT,
+    expiresIn: process.env.EXPIRE_JWT
+};
