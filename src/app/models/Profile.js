@@ -5,6 +5,7 @@ const { Types } = Schema;
 const profileSchema = new Schema({
     description: {
         type: Types.String,
+        unique: true,
         required: true,
     },
     lastModified: {
