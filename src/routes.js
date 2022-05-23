@@ -20,7 +20,7 @@ routes.post('/v1/users', createUserV1);
 routes.patch('/v1/users/:id', authorization, updateUserV1);
 routes.delete('/v1/users/:id', authorizationAdmin, removeUserV1);
 routes.get('/v2/users', authorizationAdmin, listUserV2);
-routes.get('/v2/users/:id', authorization, findUserV2);
+routes.get('/v2/user', authorization, findUserV2);
 routes.post('/v2/users', authorizationAdmin, createUserV2);
 
 routes.get('/v1/profiles', authorizationAdmin, listProfile);

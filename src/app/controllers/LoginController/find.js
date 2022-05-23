@@ -21,7 +21,7 @@ export default async (req, res) => {
             .setExpirationTime(process.env.EXPIRE_JWT)
             .sign(secretKey);
         
-        return res.status(200).json({ userId: await findUser._id, token: tokenJWT });
+        return res.status(200).json({ userId: await findUser._id, userName: await findUser.name, token: tokenJWT });
     } catch (error) {
         return res.status(500).json({ error: error.toString() });
     }
