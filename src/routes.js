@@ -39,13 +39,13 @@ routes.patch('/v1/consultants/:id', authorization, consultantUpdate);
 routes.delete('/v1/consultants/:id', authorizationAdmin, consultantRemove);
 
 routes.get('/v1/products/:greenhouseId', authorization, productList);
-routes.get('/v1/products/:id', authorization, productFind);
+routes.get('/v1/product/:id', authorization, productFind);
 routes.post('/v1/products', authorization, productCreate);
 routes.patch('/v1/products/:id', authorization, productUpdate);
 routes.delete('/v1/products/:id', authorization, productRemove);
 
 routes.get('/v1/sensors/:greenhouseId', authorization, sensorList);
-routes.get('/v1/sensors/:id', authorization, sensorFind);
+routes.get('/v1/sensor/:id', authorization, sensorFind);
 routes.post('/v1/sensors', authorization, sensorCreate);
 routes.patch('/v1/sensors/:id', authorization, sensorUpdate);
 routes.delete('/v1/sensors/:id', authorization, sensorRemove);
