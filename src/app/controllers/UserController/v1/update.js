@@ -1,19 +1,33 @@
 import bcrypt from 'bcryptjs';
-import users from '../../../../mock/Users';
+import User from '../../../models/User';
 
 export default async (req, res) => {
-    const user = users.find((usr) => usr.id == req.params.id);
-    if(!user)
-        return res.status(404).json({ error: 'User not found!' });
+    try {
+        const { name, email, password, phone, address, city, state, country } = await req.body;
+        let newPass;
+    
+        if(password)
+            newPass = await bcrypt.hash(password, 10);
+    
+        const updtUser = await User.findOne({ _id: req.userId });
 
-    const { name, email, phone, password } = req.body;
+        if(!req.params.id || req.userId != req.params.id || !updtUser)
+            return res.status(404).json({ error: 'User not found!' });
 
-    user.name = name ? name : user.name;
-    user.email = email ? email : user.email;
-    user.phone = phone ? phone : user.phone;
+        updtUser.name = name || updtUser.name;
+        updtUser.email = email || updtUser.email;
+        updtUser.password = newPass || updtUser.password;
+        updtUser.phone = phone || updtUser.phone;
+        updtUser.address = address || updtUser.address;
+        updtUser.city = city || updtUser.city;
+        updtUser.state = state || updtUser.state;
+        updtUser.country = country || updtUser.country;
+        updtUser.lastModified = new Date().toISOString();
 
-    if(password)
-        user.password = await bcrypt.hash(password, 10);
+        await updtUser.save();
 
-    return res.json(user);
+        return res.json({ userId: updtUser._id });
+    } catch (error) {
+        return res.status(500).json({ error: error.toString() });
+    }
 };

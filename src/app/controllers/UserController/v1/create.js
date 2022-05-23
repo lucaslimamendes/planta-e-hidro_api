@@ -17,12 +17,12 @@ export default async (req, res) => {
             name, email, phone, address, city, state, country
         } = await req.body;
 
-        const user = await new User({
+        const newUser = await new User({
             name, email, password, phone, address, city, state, country, lastModified: new Date().toISOString()
         });
-        await user.save();
+        await newUser.save();
 
-        return res.status(201).json({ userId: user._id });
+        return res.status(201).json({ userId: newUser._id });
     } catch (error) {
         return res.status(500).json({ error: error.toString() });
     }

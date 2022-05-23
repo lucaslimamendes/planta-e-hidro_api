@@ -1,30 +1,28 @@
 import { createSecretKey } from 'crypto';
 import { SignJWT } from 'jose';
 import bcrypt from 'bcryptjs';
-import settings from '../../../config/auth';
-import users from '../../../mock/Users';
+import User from '../../models/User';
 
 export default async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password } = await req.body;
     
-        const user = users.find((usr) => usr.email == email);
-        if (!user)
+        const findUser = await User.findOne({ email: email });
+        if (!findUser)
             return res.status(404).json({ error: 'User not found!' });
     
-        const match = await bcrypt.compare(password.toString(), user.password);
+        const match = await bcrypt.compare(password.toString(), findUser.password);
         if (!match)
             return res.status(412).json({ message: 'Senha e/ou email incorreto(s)!' });
 
-        const secretKey = createSecretKey(settings.secret, 'utf-8');
-        const tokenJWT = await new SignJWT({ 'usrId': user.id })
+        const secretKey = createSecretKey(process.env.SECRET_JWT, 'utf-8');
+        const tokenJWT = await new SignJWT({ 'usrId': await findUser._id })
             .setProtectedHeader({ alg: 'HS256' })
-            .setExpirationTime(settings.expiresIn)
+            .setExpirationTime(process.env.EXPIRE_JWT)
             .sign(secretKey);
         
-        return res.status(200).json({ id: user.id, token: tokenJWT });
+        return res.status(200).json({ userId: await findUser._id, token: tokenJWT });
     } catch (error) {
-        console.log('error', error);
-        return res.status(500).json({ error: 'Internal error!' });
+        return res.status(500).json({ error: error.toString() });
     }
 };

@@ -1,12 +1,11 @@
-import users from '../../../../mock/Users';
+import User from '../../../models/User';
 
 export default async (req, res) => {
-
-    users.forEach(user => {
-        delete user['password'];
-        delete user['phone'];
-        delete user['name'];
-    });
-
-    return res.json(users);
+    try {
+        const users = await User.find({}, '_id email');
+    
+        return res.json(users);
+    } catch (error) {
+        return res.status(500).json({ error: error.toString() });
+    }
 };

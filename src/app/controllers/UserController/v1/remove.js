@@ -1,10 +1,11 @@
-import users from '../../../../mock/Users';
+import User from '../../../models/User';
 
 export default async (req, res) => {
-    const userIdx = users.findIndex((usr) => usr.id == req.params.id);
-    if(!userIdx || userIdx < 0)
-        return res.status(404).json({ error: 'User not found!' });
-
-    users.splice(userIdx, 1);
-    return res.json(users);
+    try {
+        const usrRmv = await User.deleteOne({ _id: await req.params.id.toString() });
+        
+        return res.status(204).json(usrRmv);
+    } catch (error) {
+        return res.status(500).json({ error: error.toString() });
+    }
 };
