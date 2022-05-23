@@ -6,6 +6,7 @@ import removeUserV1 from './v1/remove';
 
 import listUserV2 from './v2/list';
 import findUserV2 from './v2/find';
+import createUserV2 from './v2/create';
 
 export {
     listUserV1,
@@ -14,5 +15,6 @@ export {
     updateUserV1,
     removeUserV1,
     listUserV2,
-    findUserV2
+    findUserV2,
+    createUserV2
 };

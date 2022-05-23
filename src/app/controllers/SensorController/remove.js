@@ -1,8 +1,8 @@
-import Greenhouse from '../../models/Greenhouse';
+import Sensor from '../../models/Sensor';
 
 export default async (req, res) => {
     try {
-        const rmv = await Greenhouse.deleteOne({ _id: await req.params.id.toString(), userId: await req.userId.toString() });
+        const rmv = await Sensor.deleteOne({ _id: await req.params.id.toString() });
         
         return res.status(204).json(rmv);
     } catch (error) {

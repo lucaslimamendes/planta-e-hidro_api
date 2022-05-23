@@ -1,8 +1,8 @@
-import Greenhouse from '../../models/Greenhouse';
+import Consultant from '../../models/Consultant';
 
 export default async (req, res) => {
     try {
-        const findGreen = await Greenhouse.find({ userId: await req.userId.toString() });
+        const findGreen = await Consultant.find({ userId: await req.userId.toString() });
     
         return res.json(findGreen);
     } catch (error) {

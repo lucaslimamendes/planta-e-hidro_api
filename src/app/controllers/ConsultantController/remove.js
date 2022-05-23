@@ -1,8 +1,8 @@
-import Greenhouse from '../../models/Greenhouse';
+import Consultant from '../../models/Consultant';
 
 export default async (req, res) => {
     try {
-        const rmv = await Greenhouse.deleteOne({ _id: await req.params.id.toString(), userId: await req.userId.toString() });
+        const rmv = await Consultant.deleteOne({ _id: await req.params.id.toString() });
         
         return res.status(204).json(rmv);
     } catch (error) {
