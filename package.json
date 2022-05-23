@@ -8,7 +8,8 @@
     "dev": "nodemon --exec babel-node src/server.js",
     "dev:debug": "nodemon --exec babel-node src/server.js",
     "build": "babel src -d build",
-    "start": "node build/server.js"
+    "start": "node build/server.js",
+    "start-gendoc": "node --experimental-modules swagger.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,8 @@
     "express": "^4.17.3",
     "jose": "^4.8.1",
     "jsonschema": "^1.4.1",
-    "mongoose": "^6.3.4"
+    "mongoose": "^6.3.4",
+    "swagger-autogen": "^2.21.2",
+    "swagger-ui-express": "^4.4.0"
   }
 }
