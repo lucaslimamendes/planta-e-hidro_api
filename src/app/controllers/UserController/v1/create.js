@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { Validator } from 'jsonschema';
 import User from '../../../models/User';
-import userSchema from '../../../schemas/User.json';
+import userSchema from '../../../schemas/User';
 
 export default async (req, res) => {
     try {
