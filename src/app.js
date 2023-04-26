@@ -1,8 +1,13 @@
 import express from 'express';
 import cors from 'cors';
-import routes from './routes';
+import path from 'path';
+import { config } from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerFile from '../swagger-output.json';
+import routes from './routes';
+
+config({ path: path.resolve(__dirname, '../../.env') });
+
 import './config/database';
 
 const app = express();
