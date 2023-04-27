@@ -1,12 +1,12 @@
-import User from '../../models/User';
+import Alert from '../../models/Alert';
 
 export default async (req, res) => {
   try {
-    const usrRmv = await User.deleteOne({
+    const alertRmv = await Alert.deleteOne({
       _id: await req.params.id.toString(),
     });
 
-    return res.status(204).json(usrRmv);
+    return res.status(204).json(alertRmv);
   } catch (error) {
     return res.status(500).json({ error: error.toString() });
   }

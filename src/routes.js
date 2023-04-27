@@ -16,6 +16,12 @@ import {
   sensorCreate,
   sensorRemove,
 } from './app/controllers/SensorController';
+import {
+  alertList,
+  alertFind,
+  alertCreate,
+  alertRemove,
+} from './app/controllers/AlertController';
 
 const routes = new Router();
 
@@ -31,5 +37,10 @@ routes.get('/v1/sensors/:userId', authorization, sensorList);
 routes.get('/v1/sensors/:id', authorization, sensorFind);
 routes.post('/v1/sensors', authorization, sensorCreate);
 routes.delete('/v1/sensors/:id', authorization, sensorRemove);
+
+routes.get('/v1/alerts', authorizationAdmin, alertList);
+routes.get('/v1/alerts/:userId', authorization, alertFind);
+routes.post('/v1/alerts', authorization, alertCreate);
+routes.delete('/v1/alerts/:id', authorization, alertRemove);
 
 export default routes;

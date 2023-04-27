@@ -7,10 +7,6 @@ export default {
       description: 'Helix id of sensor',
       type: 'string',
     },
-    userId: {
-      description: 'User ID',
-      type: 'string',
-    },
   },
-  required: ['sensorHelixId', 'userId'],
+  required: ['sensorHelixId'],
 };
