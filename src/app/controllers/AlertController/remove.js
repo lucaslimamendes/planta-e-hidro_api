@@ -2,6 +2,8 @@ import Alert from '../../models/Alert';
 
 export default async (req, res) => {
   try {
+    // TO DO (DELETE SUBSCRIPTION SERVICE - fiwareSubscriptionId)
+
     const alertRmv = await Alert.deleteOne({
       _id: await req.params.id.toString(),
     });

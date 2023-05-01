@@ -43,4 +43,6 @@ routes.get('/v1/alerts/:userId', authorization, alertFind);
 routes.post('/v1/alerts', authorization, alertCreate);
 routes.delete('/v1/alerts/:id', authorization, alertRemove);
 
+// TO DO (CREATE NOTIFICATION ROUTE)
+
 export default routes;

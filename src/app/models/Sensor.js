@@ -8,7 +8,15 @@ const sensorSchema = new Schema({
     ref: 'User',
     required: true,
   },
-  sensorHelixId: {
+  sensorHelixDeviceId: {
+    type: Types.String,
+    required: true,
+  },
+  sensorHelixEntityId: {
+    type: Types.String,
+    required: true,
+  },
+  sensorHelixAttr: {
     type: Types.String,
     required: true,
   },

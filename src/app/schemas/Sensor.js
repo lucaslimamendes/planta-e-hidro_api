@@ -3,10 +3,18 @@ export default {
   title: 'Sensor',
   type: 'object',
   properties: {
-    sensorHelixId: {
-      description: 'Helix id of sensor',
+    sensorHelixDeviceId: {
+      description: 'Helix Device id of sensor',
+      type: 'string',
+    },
+    sensorHelixEntityId: {
+      description: 'Helix Entity id of sensor',
+      type: 'string',
+    },
+    sensorHelixAttr: {
+      description: 'Helix Attr of sensor',
       type: 'string',
     },
   },
-  required: ['sensorHelixId'],
+  required: ['sensorHelixDeviceId', 'sensorHelixEntityId', 'sensorHelixAttr'],
 };
