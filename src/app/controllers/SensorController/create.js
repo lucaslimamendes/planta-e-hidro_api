@@ -11,12 +11,15 @@ export default async (req, res) => {
       return res.status(412).json({ error: resValidate.toString() });
     }
 
-    const { sensorHelixId } = await req.body;
     const dtNow = new Date().toISOString();
+    const { sensorHelixDeviceId, sensorHelixEntityId, sensorHelixAttr } =
+      await req.body;
 
     const newSensor = await new Sensor({
       userId: req.userId,
-      sensorHelixId,
+      sensorHelixDeviceId,
+      sensorHelixEntityId,
+      sensorHelixAttr,
       lastModified: dtNow,
       createdAt: dtNow,
     });

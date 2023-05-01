@@ -1,6 +1,8 @@
 import { Validator } from 'jsonschema';
 import Alert from '../../models/Alert';
+import Sensor from '../../models/Sensor';
 import alertSchema from '../../schemas/Alert';
+import { createSubscription } from '../../services/subscriptions';
 
 export default async (req, res) => {
   try {
@@ -11,13 +13,23 @@ export default async (req, res) => {
       return res.status(412).json({ error: resValidate.toString() });
     }
 
+    const findSensor = await Sensor.findOne({ _id: sensorId });
+    if (!findSensor) {
+      return res.status(400).json({ error: 'Sensor not found!' });
+    }
+
     const { sensorId, value, lessOrGreater } = await req.body;
     const dtNow = new Date().toISOString();
 
-    // TO DO (CREATE SUBSCRIPTION SERVICE - fiwareSubscriptionId)
+    const subscription = await createSubscription(
+      value,
+      lessOrGreater,
+      req.userId,
+      findSensor
+    );
 
     const newAlert = await new Alert({
-      fiwareSubscriptionId,
+      fiwareSubscriptionId: subscription.subscriptionId,
       userId: req.userId,
       sensorId,
       value,
