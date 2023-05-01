@@ -3,6 +3,7 @@ import { Router } from 'express';
 import authorization from './middlewares/authorization';
 import authorizationAdmin from './middlewares/authorizationAdmin';
 import { loginFind } from './app/controllers/LoginController';
+import { notifyCreate } from './app/controllers/NotifyController';
 import {
   userList,
   userFind,
@@ -43,6 +44,6 @@ routes.get('/v1/alerts/:userId', authorization, alertFind);
 routes.post('/v1/alerts', authorization, alertCreate);
 routes.delete('/v1/alerts/:id', authorization, alertRemove);
 
-// TO DO (CREATE NOTIFICATION ROUTE)
+routes.post('/v1/notify/:userId/:sensorId', notifyCreate);
 
 export default routes;
