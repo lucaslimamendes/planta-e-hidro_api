@@ -1,10 +1,9 @@
 import axios from 'axios';
-const { URL_FIREBASE } = process.env;
 
 const sendPushNotification = async (sensor, userToken, firebaseToken) => {
   try {
     const response = await axios.post(
-      URL_FIREBASE,
+      process.env.URL_FIREBASE,
       {
         message: {
           token: userToken,

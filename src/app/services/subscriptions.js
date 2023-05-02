@@ -1,27 +1,35 @@
 import axios from 'axios';
-const { URL_SUBSCRIPTION_FIWARE, URL_CALLBACK_SUBSCRIPTION } = process.env;
 
 const createSubscription = async (value, lessOrGreater, userId, sensor) => {
   try {
     const sinal = lessOrGreater ? '>' : '<';
     const { sensorHelixEntityId, sensorHelixAttr, _id } = sensor;
 
-    const response = await axios.post(URL_SUBSCRIPTION_FIWARE, {
-      description: `Notify me of ${sensorHelixEntityId} (${sensorHelixAttr}) ${sinal} ${value}`,
-      subject: {
-        entities: [{ id: sensorHelixEntityId }],
-        condition: {
-          attrs: [sensorHelixAttr],
-          expression: { q: `${sensorHelixAttr}${sinal}${value}` },
+    const response = await axios.post(
+      process.env.URL_SUBSCRIPTION_FIWARE,
+      {
+        description: `Notify me of ${sensorHelixEntityId} ${sensorHelixAttr} ${lessOrGreater} ${value}`,
+        subject: {
+          entities: [{ id: sensorHelixEntityId }],
+          condition: {
+            attrs: [sensorHelixAttr],
+            expression: { q: `${sensorHelixAttr}${sinal}${value}` },
+          },
+        },
+        notification: {
+          http: {
+            url: `${process.env.URL_CALLBACK_SUBSCRIPTION}/${userId}/${_id}`,
+          },
+          // attrsFormat: 'keyValues',
         },
       },
-      notification: {
-        http: {
-          url: `${URL_CALLBACK_SUBSCRIPTION}/${userId}/${_id}`,
+      {
+        headers: {
+          'fiware-service': process.env.FIWARE_SERVICE_HEADER,
+          'fiware-servicepath': '/',
         },
-        // attrsFormat: 'keyValues',
-      },
-    });
+      }
+    );
     const { data, status } = response;
     console.log(response);
 
@@ -35,7 +43,13 @@ const createSubscription = async (value, lessOrGreater, userId, sensor) => {
 const deleteSubscription = async subscriptionId => {
   try {
     const response = await axios.delete(
-      `${URL_SUBSCRIPTION_FIWARE}/${subscriptionId}`
+      `${process.env.URL_SUBSCRIPTION_FIWARE}/${subscriptionId}`,
+      {
+        headers: {
+          'fiware-service': process.env.FIWARE_SERVICE_HEADER,
+          'fiware-servicepath': '/',
+        },
+      }
     );
     const { data, status } = response;
     console.log(response);
