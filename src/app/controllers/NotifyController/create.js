@@ -2,6 +2,7 @@ import Sensor from '../../models/Sensor';
 import Alert from '../../models/Alert';
 import User from '../../models/User';
 import { sendPushNotification } from '../../services/firebase';
+import getFirebaseToken from '../../helpers/firebaseToken';
 
 export default async (req, res) => {
   try {
@@ -29,7 +30,9 @@ export default async (req, res) => {
         .json({ error: 'Sensor, user or alert not found!' });
     }
 
-    await sendPushNotification(findSensor, findUser.notifyToken);
+    const firebaseToken = await getFirebaseToken();
+
+    await sendPushNotification(findSensor, findUser.notifyToken, firebaseToken);
 
     findAlert.lastSend = new Date().toISOString();
 

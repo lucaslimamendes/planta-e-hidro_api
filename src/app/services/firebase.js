@@ -1,22 +1,22 @@
 import axios from 'axios';
-const { URL_FIREBASE, FIREBASE_TOKEN } = process.env;
+const { URL_FIREBASE } = process.env;
 
-const sendPushNotification = async (sensor, userToken) => {
+const sendPushNotification = async (sensor, userToken, firebaseToken) => {
   try {
     const response = await axios.post(
       URL_FIREBASE,
       {
-        to: userToken,
-        direct_boot_ok: true,
-        notification: {
-          title: 'Alerta!',
-          body: `Sensor ${sensor.sensorHelixDeviceId} esta com atributo (${sensor.sensorHelixAttr}) fora do padrão.`,
+        message: {
+          token: userToken,
+          notification: {
+            title: 'Alerta!',
+            body: `Sensor ${sensor.sensorHelixDeviceId} esta com atributo (${sensor.sensorHelixAttr}) fora do padrão.`,
+          },
         },
       },
       {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `key=${FIREBASE_TOKEN}`,
+          Authorization: `Bearer ${firebaseToken}`,
         },
       }
     );

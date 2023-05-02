@@ -23,6 +23,7 @@ import {
   alertCreate,
   alertRemove,
 } from './app/controllers/AlertController';
+// import getFirebaseToken from './app/helpers/firebaseToken';
 
 const routes = new Router();
 
@@ -45,5 +46,11 @@ routes.post('/v1/alerts', authorization, alertCreate);
 routes.delete('/v1/alerts/:id', authorization, alertRemove);
 
 routes.post('/v1/notify/:userId/:sensorId', notifyCreate);
+
+// routes.get('/v1/getTokenTest', async function (req, res) {
+//   const token = await getFirebaseToken();
+
+//   res.status(201).json({ token });
+// });
 
 export default routes;
