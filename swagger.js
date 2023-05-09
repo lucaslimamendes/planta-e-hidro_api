@@ -1,3 +1,4 @@
+import './src/config/dotenvs';
 import swaggerAutogen from 'swagger-autogen';
 import routes from './src/routes';
 
