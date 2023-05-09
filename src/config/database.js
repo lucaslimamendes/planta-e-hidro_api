@@ -1,12 +1,30 @@
-import { connect, connection } from 'mongoose';
+import { createConnection } from 'mongoose';
 
-export default () => {
-  connect(process.env.DB_CONNECTION, { useNewUrlParser: true });
+function makeNewConnection(uri) {
+  const db = createConnection(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
-  connection.once('open', () => {
-    console.log('Database connected!');
+  db.on('error', function (error) {
+    console.log(`MongoDB :: connection ${this.name} ${JSON.stringify(error)}`);
+    db.close().catch(() =>
+      console.log(`MongoDB :: failed to close connection ${this.name}`)
+    );
   });
-  connection.on('error', err => {
-    console.error('Database connection error:', err);
+
+  db.on('connected', function () {
+    console.log(`MongoDB :: connected ${this.name}`);
   });
-};
+
+  db.on('disconnected', function () {
+    console.log(`MongoDB :: disconnected ${this.name}`);
+  });
+
+  return db;
+}
+
+const dbAPI = makeNewConnection(process.env.DB_CONNECTION_API);
+const dbHELIX = makeNewConnection(process.env.DB_CONNECTION_HELIX);
+
+export { dbAPI, dbHELIX };

@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import authorization from './middlewares/authorization';
 import authorizationAdmin from './middlewares/authorizationAdmin';
+import { valueFind } from './app/controllers/ValueController';
 import { loginFind } from './app/controllers/LoginController';
 import { notifyCreate } from './app/controllers/NotifyController';
 import {
@@ -23,7 +24,7 @@ import {
   alertCreate,
   alertRemove,
 } from './app/controllers/AlertController';
-import getFirebaseToken from './app/helpers/firebaseToken';
+// import getFirebaseToken from './app/helpers/firebaseToken';
 
 const routes = new Router();
 
@@ -47,10 +48,12 @@ routes.delete('/v1/alerts/:id', authorization, alertRemove);
 
 routes.post('/v1/notify/:userId/:sensorId', notifyCreate);
 
-routes.get('/v1/getTokenTest', async function (req, res) {
-  const token = await getFirebaseToken();
+routes.get('/v1/values/:helixDeviceId', authorization, valueFind);
 
-  res.status(201).json({ token });
-});
+// routes.get('/v1/getTokenTest', async function (req, res) {
+//   const token = await getFirebaseToken();
+
+//   res.status(201).json({ token });
+// });
 
 export default routes;

@@ -12,13 +12,18 @@ export default async (req, res) => {
     }
 
     const dtNow = new Date().toISOString();
-    const { sensorHelixDeviceId, sensorHelixEntityId, sensorHelixAttr } =
-      await req.body;
+    const {
+      sensorHelixDeviceId,
+      sensorHelixEntityId,
+      sensorHelixEntityType,
+      sensorHelixAttr,
+    } = await req.body;
 
     const newSensor = await new Sensor({
       userId: req.userId,
       sensorHelixDeviceId,
       sensorHelixEntityId,
+      sensorHelixEntityType,
       sensorHelixAttr,
       lastModified: dtNow,
       createdAt: dtNow,

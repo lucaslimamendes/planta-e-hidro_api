@@ -1,4 +1,5 @@
-import { Schema, model } from 'mongoose';
+import { Schema } from 'mongoose';
+import { dbAPI } from '../../config/database';
 
 const { Types } = Schema;
 
@@ -32,4 +33,4 @@ const userSchema = new Schema({
   },
 });
 
-export default model('User', userSchema);
+export default dbAPI.model('User', userSchema);

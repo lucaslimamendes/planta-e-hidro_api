@@ -1,4 +1,5 @@
-import { Schema, model } from 'mongoose';
+import { Schema } from 'mongoose';
+import { dbAPI } from '../../config/database';
 
 const { Types } = Schema;
 
@@ -39,4 +40,4 @@ const alertSchema = new Schema({
   },
 });
 
-export default model('Alert', alertSchema);
+export default dbAPI.model('Alert', alertSchema);

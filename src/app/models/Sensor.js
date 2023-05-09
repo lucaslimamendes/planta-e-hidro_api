@@ -1,4 +1,5 @@
-import { Schema, model } from 'mongoose';
+import { Schema } from 'mongoose';
+import { dbAPI } from '../../config/database';
 
 const { Types } = Schema;
 
@@ -16,6 +17,10 @@ const sensorSchema = new Schema({
     type: Types.String,
     required: true,
   },
+  sensorHelixEntityType: {
+    type: Types.String,
+    required: true,
+  },
   sensorHelixAttr: {
     type: Types.String,
     required: true,
@@ -28,4 +33,4 @@ const sensorSchema = new Schema({
   },
 });
 
-export default model('Sensor', sensorSchema);
+export default dbAPI.model('Sensor', sensorSchema);

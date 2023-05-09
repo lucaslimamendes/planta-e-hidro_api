@@ -11,10 +11,19 @@ export default {
       description: 'Helix Entity id of sensor',
       type: 'string',
     },
+    sensorHelixEntityType: {
+      description: 'Helix Entity type of sensor',
+      type: 'string',
+    },
     sensorHelixAttr: {
       description: 'Helix Attr of sensor',
       type: 'string',
     },
   },
-  required: ['sensorHelixDeviceId', 'sensorHelixEntityId', 'sensorHelixAttr'],
+  required: [
+    'sensorHelixDeviceId',
+    'sensorHelixEntityId',
+    'sensorHelixEntityType',
+    'sensorHelixAttr',
+  ],
 };
