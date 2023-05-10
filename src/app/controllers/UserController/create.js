@@ -13,7 +13,7 @@ export default async (req, res) => {
     }
 
     const password = await bcrypt.hash(await req.body.password, 10);
-    const { name, email, isActive = true } = await req.body;
+    const { name, email, isActive = true, notifyToken = '' } = await req.body;
     const dtNow = new Date().toISOString();
 
     const newUser = await new User({
@@ -21,7 +21,7 @@ export default async (req, res) => {
       email,
       password,
       isActive,
-      notifyToken: '',
+      notifyToken,
       lastModified: dtNow,
       createdAt: dtNow,
     });

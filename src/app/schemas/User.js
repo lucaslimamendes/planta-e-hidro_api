@@ -15,6 +15,10 @@ export default {
       description: 'Password for user',
       type: 'string',
     },
+    notifyToken: {
+      description: 'Password for user',
+      type: 'string',
+    },
     isActive: {
       description: 'Is active user',
       type: 'boolean',
