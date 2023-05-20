@@ -25,7 +25,11 @@ export default async (req, res) => {
       `${sensorHelixEntityId}_${sensorHelixEntityType}`
     );
 
-    const filters = { attrName: sensorHelixAttr };
+    const filters = {
+      attrName: {
+        $regex: new RegExp('^' + sensorHelixAttr.toLowerCase(), 'i'),
+      },
+    };
 
     if (startDate) {
       filters.recvTime = { $gte: stDt, $lte: ndDt };
