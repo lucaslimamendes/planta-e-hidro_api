@@ -5,6 +5,7 @@ export default async (req, res) => {
   try {
     const helixDeviceId = req.params.helixDeviceId.toString();
     const { startDate, endDate } = req.query;
+    let limitDefault = 25;
 
     const stDt = startDate ? new Date(startDate) : new Date();
     const ndDt = endDate ? new Date(endDate) : new Date();
@@ -33,11 +34,12 @@ export default async (req, res) => {
 
     if (startDate) {
       filters.recvTime = { $gte: stDt, $lte: ndDt };
+      limitDefault = 85;
     }
 
     const findValues = await Value.find(filters)
       .sort({ recvTime: -1 })
-      .limit(25);
+      .limit(limitDefault);
 
     return res.json(findValues);
   } catch (error) {
