@@ -8,8 +8,13 @@ const sendPushNotification = async (sensor, userToken, firebaseToken) => {
         message: {
           token: userToken,
           notification: {
-            title: 'Alerta!',
+            title: 'Novo Alerta!',
             body: `Sensor ${sensor.sensorHelixDeviceId} esta com atributo (${sensor.sensorHelixAttr}) fora do padrão.`,
+          },
+          android: {
+            notification: {
+              image: process.env.URL_LOGO_NOTIFY,
+            },
           },
         },
       },
