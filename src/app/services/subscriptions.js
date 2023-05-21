@@ -30,10 +30,9 @@ const createSubscription = async (value, lessOrGreater, userId, sensor) => {
         },
       }
     );
-    const { data, status } = response;
-    console.log(response);
+    const { status } = response;
 
-    return { data, status };
+    return { status };
   } catch (error) {
     console.error(error);
     throw new Error(`Create subscription error: ${error}`);
@@ -61,4 +60,21 @@ const deleteSubscription = async subscriptionId => {
   }
 };
 
-export { createSubscription, deleteSubscription };
+const listSubscriptions = async () => {
+  try {
+    const response = await axios.get(`${process.env.URL_SUBSCRIPTION_FIWARE}`, {
+      headers: {
+        'fiware-service': process.env.FIWARE_SERVICE_HEADER,
+        'fiware-servicepath': '/',
+      },
+    });
+    const { data } = response;
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error(`List subscription error: ${error}`);
+  }
+};
+
+export { createSubscription, deleteSubscription, listSubscriptions };

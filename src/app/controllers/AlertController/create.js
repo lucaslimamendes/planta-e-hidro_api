@@ -2,7 +2,10 @@ import { Validator } from 'jsonschema';
 import Alert from '../../models/Alert';
 import Sensor from '../../models/Sensor';
 import alertSchema from '../../schemas/Alert';
-import { createSubscription } from '../../services/subscriptions';
+import {
+  createSubscription,
+  listSubscriptions,
+} from '../../services/subscriptions';
 
 export default async (req, res) => {
   try {
@@ -22,15 +25,15 @@ export default async (req, res) => {
 
     const dtNow = new Date().toISOString();
 
-    const subscription = await createSubscription(
-      value,
-      lessOrGreater,
-      req.userId,
-      findSensor
-    );
+    await createSubscription(value, lessOrGreater, req.userId, findSensor);
+
+    const subscriptions = await listSubscriptions();
+    const subsLen = subscriptions.length;
+
+    const subscription = subscriptions[subsLen - 1];
 
     const newAlert = await new Alert({
-      fiwareSubscriptionId: subscription.subscriptionId,
+      fiwareSubscriptionId: subscription.id,
       userId: req.userId,
       sensorId,
       value,
@@ -42,6 +45,7 @@ export default async (req, res) => {
 
     return res.status(201).json({ alertId: newAlert._id });
   } catch (error) {
+    console.log('createAlert error', error);
     return res.status(500).json({ error: error.toString() });
   }
 };
