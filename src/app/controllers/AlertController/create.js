@@ -13,12 +13,13 @@ export default async (req, res) => {
       return res.status(412).json({ error: resValidate.toString() });
     }
 
+    const { sensorId, value, lessOrGreater } = await req.body;
     const findSensor = await Sensor.findOne({ _id: sensorId });
+
     if (!findSensor) {
       return res.status(400).json({ error: 'Sensor not found!' });
     }
 
-    const { sensorId, value, lessOrGreater } = await req.body;
     const dtNow = new Date().toISOString();
 
     const subscription = await createSubscription(
