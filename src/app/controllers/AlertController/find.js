@@ -4,7 +4,7 @@ export default async (req, res) => {
   try {
     const findAlert = await Alert.find({
       userId: await req.params.userId.toString(),
-    });
+    }).sort({ createdAt: -1 });
 
     return res.json(findAlert);
   } catch (error) {
