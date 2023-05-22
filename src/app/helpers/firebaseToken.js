@@ -12,7 +12,6 @@ export default async () => {
     );
 
     const authorize = await jwtClient.authorize();
-    console.log('authorize: ' + authorize);
 
     return authorize.access_token;
   } catch (error) {

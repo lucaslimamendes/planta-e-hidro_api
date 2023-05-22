@@ -9,7 +9,7 @@ export default async (req, res) => {
     const { subscriptionId, data } = await req.body;
     const userId = req.params.userId.toString();
     const sensorId = req.params.sensorId.toString();
-    const currentDate = new Date().toISOString();
+    const currentDate = new Date();
 
     if (!subscriptionId || !data[0]) {
       return res.status(412).json({ error: 'Payload invalid' });
@@ -44,7 +44,7 @@ export default async (req, res) => {
 
     await sendPushNotification(findSensor, findUser.notifyToken, firebaseToken);
 
-    findAlert.lastSend = currentDate;
+    findAlert.lastSend = currentDate.toISOString();
 
     await findAlert.save();
 
