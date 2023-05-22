@@ -4,16 +4,22 @@ const createSubscription = async (value, lessOrGreater, userId, sensor) => {
   try {
     const sinal = lessOrGreater ? '>' : '<';
     const { sensorHelixEntityId, sensorHelixAttr, _id } = sensor;
+    let newAttr = sensorHelixAttr;
+
+    if (sensorHelixAttr === 'temperature') {
+      newAttr =
+        sensorHelixAttr.charAt(0).toUpperCase() + sensorHelixAttr.slice(1);
+    }
 
     const response = await axios.post(
       process.env.URL_SUBSCRIPTION_FIWARE,
       {
-        description: `Notify me of ${sensorHelixEntityId} ${sensorHelixAttr} ${lessOrGreater} ${value}`,
+        description: `Notify me of ${sensorHelixEntityId} ${newAttr} ${lessOrGreater} ${value}`,
         subject: {
           entities: [{ id: sensorHelixEntityId }],
           condition: {
-            attrs: [sensorHelixAttr],
-            expression: { q: `${sensorHelixAttr}${sinal}${value}` },
+            attrs: [newAttr],
+            expression: { q: `${newAttr}${sinal}'${value}'` },
           },
         },
         notification: {

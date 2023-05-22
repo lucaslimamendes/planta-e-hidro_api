@@ -9,6 +9,7 @@ export default async (req, res) => {
     const { subscriptionId, data } = await req.body;
     const userId = req.params.userId.toString();
     const sensorId = req.params.sensorId.toString();
+    const currentDate = new Date().toISOString();
 
     if (!subscriptionId || !data[0]) {
       return res.status(412).json({ error: 'Payload invalid' });
@@ -30,11 +31,20 @@ export default async (req, res) => {
         .json({ error: 'Sensor, user or alert not found!' });
     }
 
+    if (
+      findAlert.lastSend &&
+      Math.abs(currentDate - new Date(findAlert.lastSend)) / 36e5 < 2
+    ) {
+      return res
+        .status(400)
+        .json({ error: 'Last alert less than two hours ago.' });
+    }
+
     const firebaseToken = await getFirebaseToken();
 
     await sendPushNotification(findSensor, findUser.notifyToken, firebaseToken);
 
-    findAlert.lastSend = new Date().toISOString();
+    findAlert.lastSend = currentDate;
 
     await findAlert.save();
 

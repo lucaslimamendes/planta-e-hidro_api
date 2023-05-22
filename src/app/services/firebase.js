@@ -25,7 +25,6 @@ const sendPushNotification = async (sensor, userToken, firebaseToken) => {
       }
     );
     const { data, status } = response;
-    console.log(response);
 
     return { data, status };
   } catch (error) {
