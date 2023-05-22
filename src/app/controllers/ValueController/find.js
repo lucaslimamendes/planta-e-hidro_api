@@ -7,8 +7,8 @@ export default async (req, res) => {
     const { startDate, endDate } = req.query;
     let limitDefault = 40;
 
-    const stDt = startDate ? new Date(startDate) : new Date();
-    const ndDt = endDate ? new Date(endDate) : new Date();
+    const stDt = startDate ? new Date(startDate + ' GMT-0300') : new Date();
+    const ndDt = endDate ? new Date(endDate + ' GMT-0300') : new Date();
 
     if (!startDate) {
       stDt.setDate(stDt.getDate() - 1);
